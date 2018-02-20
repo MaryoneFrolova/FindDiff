@@ -18,5 +18,5 @@ export default (beforeConf, afterConf) => {
       return [...acc, `- ${el}: ${beforeObj[el]}`];
     },
     [],
-  );
+  ).join('\n');
 };
