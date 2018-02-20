@@ -1,7 +1,8 @@
 #!/usr/bin/env node
+
+import program from 'commander';
+import { version } from '../../package.json';
 import genDiff from '..';
-import program from 'commander'
-import { version } from '../../package.json'
 
 program
   .version(version)
@@ -9,4 +10,4 @@ program
   .arguments('<firstConfig> <secondConfig>')
   .action((firstConfig, secondConfig) => console.log(genDiff(firstConfig, secondConfig)))
   .option('-f, --format [type]', 'Output format')
-  .parse(process.argv); 
+  .parse(process.argv);
