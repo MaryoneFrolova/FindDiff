@@ -1,17 +1,12 @@
 #!/usr/bin/env node
 import genDiff from '..';
-
-const program = require('commander');
+import program from 'commander'
+import { version } from '../../package.json'
 
 program
-  .version('0.0.4')
+  .version(version)
   .description('Compares two configuration files and shows a difference.')
-  .arguments('<firstConfig> <secondConfig> [FILES...]')
+  .arguments('<firstConfig> <secondConfig>')
+  .action((firstConfig, secondConfig) => console.log(genDiff(firstConfig, secondConfig)))
   .option('-f, --format [type]', 'Output format')
-  .parse(process.argv);
-
-const pathBefore = program.args[0];
-const pathAfter = program.args[1];
-
-console.log(genDiff(pathBefore, pathAfter));
-
+  .parse(process.argv); 
