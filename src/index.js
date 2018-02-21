@@ -1,10 +1,20 @@
 import _ from 'lodash';
+import fs from 'fs';
+import yaml from 'js-yaml';
+import path from 'path';
 
-const fs = require('fs');
+const formatInputFile = {
+  '.json': JSON.parse,
+  '.yaml': yaml.safeLoad,
+};
 
 export default (beforeFilePath, afterFilePath) => {
-  const beforeObj = JSON.parse(fs.readFileSync(beforeFilePath, 'utf8'));
-  const afterObj = JSON.parse(fs.readFileSync(afterFilePath, 'utf8'));
+  const beforeFile = fs.readFileSync(beforeFilePath, 'utf8');
+  const afterFile = fs.readFileSync(afterFilePath, 'utf8');
+  const extnameBeforeFile = path.extname(beforeFilePath);
+  const extnameAfterFile = path.extname(afterFilePath);
+  const beforeObj = formatInputFile[extnameBeforeFile](beforeFile);
+  const afterObj = formatInputFile[extnameAfterFile](afterFile);
   const startSpace = '  ';
   const diff = _.union(_.keys(beforeObj), _.keys(afterObj))
     .map((el) => {
