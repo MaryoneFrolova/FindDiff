@@ -1,22 +1,23 @@
+import _ from 'lodash';
+
 const fs = require('fs');
 
-export default (beforeConf, afterConf) => {
-  const beforeObj = JSON.parse(fs.readFileSync(beforeConf, 'utf8'));
-  const afterObj = JSON.parse(fs.readFileSync(afterConf, 'utf8'));
-  const allKeys = [...new Set([...Object.keys(beforeObj), ...Object.keys(afterObj)])];
-  return allKeys.reduce(
-    (acc, el) => {
-      if (Object.keys(afterObj).includes(el) && Object.keys(beforeObj).includes(el)) {
+export default (beforeFilePath, afterFilePath) => {
+  const beforeObj = JSON.parse(fs.readFileSync(beforeFilePath, 'utf8'));
+  const afterObj = JSON.parse(fs.readFileSync(afterFilePath, 'utf8'));
+  const startSpace = '  ';
+  const diff = _.union(_.keys(beforeObj), _.keys(afterObj))
+    .map((el) => {
+      if (_.has(afterObj, el) && _.has(beforeObj, el)) {
         if (beforeObj[el] === afterObj[el]) {
-          return [...acc, `  ${el}: ${afterObj[el]}`];
+          return `${startSpace}  ${el}: ${beforeObj[el]}`;
         }
-        return [...acc, `+ ${el}: ${afterObj[el]}`, `- ${el}: ${beforeObj[el]}`];
+        return `${startSpace}+ ${el}: ${afterObj[el]}\n${startSpace}- ${el}: ${beforeObj[el]}`;
       }
-      if (Object.keys(afterObj).includes(el)) {
-        return [...acc, `+ ${el}: ${afterObj[el]}`];
+      if (_.has(afterObj, el)) {
+        return `${startSpace}+ ${el}: ${afterObj[el]}`;
       }
-      return [...acc, `- ${el}: ${beforeObj[el]}`];
-    },
-    [],
-  ).join('\n');
+      return `${startSpace}- ${el}: ${beforeObj[el]}`;
+    });
+  return `{\n${diff.join('\n')}\n}`;
 };

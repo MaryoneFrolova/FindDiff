@@ -1,6 +1,6 @@
 {
   "name": "gendiff_maryone",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Compares two configuration files and shows a difference",
   "main": "dist/index.js",
   "bin": {
@@ -32,7 +32,7 @@
   "homepage": "https://github.com/MaryoneFrolova/project-lvl2-s193#readme",
   "dependencies": {
     "commander": "^2.14.1",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.5"
   },
   "devDependencies": {
     "babel-cli": "*",
