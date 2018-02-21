@@ -3,7 +3,7 @@
 import findDeff from '../src';
 
 const jsonBefore = '__tests__/__fixtures__/before.json';
-const jsonAfter = '__tests__/__fixtures__/after.json';
+const yamlAfter = '__tests__/__fixtures__/after.yaml';
 const expected = `{
     host: hexlet.io
   + timeout: 20
@@ -12,6 +12,6 @@ const expected = `{
   + verbose: true
 }`;
 
-test('jsonDeff', () => {
-  expect(findDeff(jsonBefore, jsonAfter)).toEqual(expected);
+test('findDeff', () => {
+  expect(findDeff(jsonBefore, yamlAfter)).toEqual(expected);
 });

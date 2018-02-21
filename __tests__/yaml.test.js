@@ -1,6 +1,6 @@
 // @flow
 
-import jsonDeff from '../src';
+import findDeff from '../src';
 
 const yamlBefore = '__tests__/__fixtures__/before.yaml';
 const yamlAfter = '__tests__/__fixtures__/after.yaml';
@@ -12,6 +12,6 @@ const expected = `{
   + verbose: true
 }`;
 
-test('jsondeff', () => {
-  expect(jsonDeff(yamlBefore, yamlAfter)).toEqual(expected);
+test('yamldeff', () => {
+  expect(findDeff(yamlBefore, yamlAfter)).toEqual(expected);
 });
