@@ -1,9 +1,9 @@
 import renderDefault from './renderDefault';
-// import renderPlain from './renderPlain';
+import renderPlain from './renderPlain';
 
 const renderFormat = {
   default: renderDefault,
-  // plain: renderPlain,
+  plain: renderPlain,
 };
 
 export default format => renderFormat[format];
