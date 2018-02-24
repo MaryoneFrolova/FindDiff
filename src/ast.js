@@ -8,16 +8,16 @@ const getAstDiff = (beforeObj, afterObj) => {
       }
       if (_.has(afterObj, key) && _.has(beforeObj, key)) {
         if (beforeObj[key] === afterObj[key]) {
-          return { key, beforeVal: beforeObj[key], type: 'same' };
+          return { key, beforeVal: beforeObj[key], type: 'unchanged' };
         }
         return {
-          key, beforeVal: beforeObj[key], afterVal: afterObj[key], type: 'change',
+          key, beforeVal: beforeObj[key], afterVal: afterObj[key], type: 'changed',
         };
       }
       if (_.has(afterObj, key)) {
-        return { key, afterVal: afterObj[key], type: 'add' };
+        return { key, afterVal: afterObj[key], type: 'added' };
       }
-      return { key, beforeVal: beforeObj[key], type: 'del' };
+      return { key, beforeVal: beforeObj[key], type: 'deleted' };
     });
   return (result);
 };

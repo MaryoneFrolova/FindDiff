@@ -8,9 +8,9 @@ const renderAst = (ast, prefix = '') => {
     const property = (prefix === '') ? `${el.key}` : `${prefix}.${el.key}`;
     switch (el.type) {
       case 'child': return `${renderAst(el.beforeVal, property)}`;
-      case 'add': return `Property '${property}' was added with ${getAddValue(el.afterVal)}`;
-      case 'del': return `Property '${property}' was removed`;
-      case 'change': return `Property '${property}' was updated. From ${getValue(el.beforeVal)} to ${getValue(el.afterVal)}`;
+      case 'added': return `Property '${property}' was added with ${getAddValue(el.afterVal)}`;
+      case 'deleted': return `Property '${property}' was removed`;
+      case 'changed': return `Property '${property}' was updated. From ${getValue(el.beforeVal)} to ${getValue(el.afterVal)}`;
       default: return null;
     }
   });

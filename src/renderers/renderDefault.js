@@ -17,10 +17,10 @@ const renderAst = (ast, lvl = 1) => {
   const result = ast.map((el) => {
     switch (el.type) {
       case 'child': return `${indent(lvl)}${el.key}: {\n${renderAst(el.beforeVal, lvl + 1)}\n${indent(lvl)}}`;
-      case 'same': return toString(el.key, el.beforeVal, lvl, '  ');
-      case 'add': return toString(el.key, el.afterVal, lvl, '+ ');
-      case 'del': return toString(el.key, el.beforeVal, lvl, '- ');
-      case 'change':
+      case 'unchanged': return toString(el.key, el.beforeVal, lvl, '  ');
+      case 'added': return toString(el.key, el.afterVal, lvl, '+ ');
+      case 'deleted': return toString(el.key, el.beforeVal, lvl, '- ');
+      case 'changed':
         return [toString(el.key, el.afterVal, lvl, '+ '), toString(el.key, el.beforeVal, lvl, '- ')];
       default: return null;
     }
